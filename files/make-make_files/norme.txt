@@ -1,0 +1,35 @@
+Norme de commit :
+
+===========================================
+
+Définition :
+[] = à remplir
+() = optionnel
+$name = nom de la fonction modifée
+
+===========================================
+
+- Supression d'une fonction/fonctionalité :
+"Retrait (bonus) $name : [pourquoi]"
+
+===========================================
+
+- Ajout d'une fonction / fichier:
+"Ajout (bonus) $name : [desc]"
+
+===========================================
+
+- Modifications d'une fonction :
+"Modif (bonus) $name : [desc]"
+
+===========================================
+
+- Grosses modifs sur tout le code :
+"Révision : [desc] [v x.x]"
+
+===========================================
+
+- Déplacement d'un fichier / dossier sans répercution sur le code :
+"Déplacement : [src]/$name -> [destination]"
+
+===========================================

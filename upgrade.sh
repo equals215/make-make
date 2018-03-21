@@ -3,6 +3,7 @@
 ##
 ## make-make upgrader
 ## By Ndr
+## Forked by equals215
 ##
 
 echo -e "\033[1m\033[44m Make-Make upgrader, by Ndr\033[0m\\n"

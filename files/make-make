@@ -1,8 +1,9 @@
 #!/bin/bash
 
 ##
-## Make-Make v3
+## Make-Make v4
 ## By Ndr
+## Forked by equals215
 ##
 
 ## Make-make, a repo initializer
@@ -77,12 +78,16 @@ copy_files () {
     cp ~/bin/make-make_files/main.c $REPO/src
     cp ~/bin/make-make_files/make-makelib/Makefile $REPO/lib/my/
     cp ~/bin/make-make_files/make-makelib/*.c $REPO/lib/my/
+    cp ~/bin/make-make_files/norme.txt $REPO/bonus/
     cp ~/bin/make-make_files/make-makelib/my.h $REPO/lib/my/
+    cp ~/bin/make-make_files/make-maketests/Makefile $REPO/tests/
+    cp ~/bin/make-make_files/make-maketests/tests.c $REPO/tests/
 }
 
 change_files () {
-    #Modifying main Makefile
+    #Modifying main and tests Makefile
     sed -i "s/PROJECTNAME/$BIN_NAME/" $REPO/Makefile
+    sed -i "s/PROJECTNAME/$BIN_NAME/" $REPO/tests/Makefile
 }
 
 auto_commit () {
@@ -91,25 +96,32 @@ auto_commit () {
     then
 	cd $REPO
 	git add --all
-	git commit -m "Initial commit"
+	yes_no "French commit message ? (English if No)"
+	if [ $CHOICE = 1 ]
+	then
+		yes_no "Norm ?"
+		if [ $CHOICE = 1 ]
+		then
+			git commit -m "Ajout projet : Initialisation du repo"
+		else
+			git commit -m "Initialisation du repo"
+	else
+		yes_no "Norm ?"
+		if [ $CHOICE = 1 ]
+		then
+			git commit -m "Add project : Repo Initialisation"
+		else
+			git commit -m "Repo Initialisation"
 	git push origin master
     fi
 }
 
-auto_open_main () {
-    yes_no "Do you want to open main.c now ? (with $MKEDITOR)"
-    if [ $CHOICE = 1 ];
-    then
-	$MKEDITOR $REPO/src/main.c &
-    fi
-}
 
-echo -e "\033[1m\033[34mMake-make v3.5: A repo initializer| by Ndr\033[0m\n"
+echo -e "\033[1m\033[34mMake-make v4: A repo initializer| by Ndr, forked by equals215\033[0m\n"
 sleep 1s
 check_args "$@"
 create_arbo
 copy_files
 change_files
 auto_commit
-auto_open_main
 echo -e "\033[1m\033[36mDone. Have a nice day.\033[0m"

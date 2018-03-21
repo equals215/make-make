@@ -20,3 +20,5 @@ It comes with handy Makefiles for projects and libraries.
 
 ## Uninstallation :
 - Run uninstall.sh :(
+
+Credits to Ndr for the original version.

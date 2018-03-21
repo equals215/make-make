@@ -2,7 +2,7 @@
 ## EPITECH PROJECT, 2017
 ## Make-make's Makefile
 ## File description:
-## By Ndr
+## By Ndr, Forked by equals215
 ##
 
 ###############
@@ -22,7 +22,6 @@ LIB_DIR=	$(realpath ./lib/my)
 INC_DIR=	$(realpath ./include)
 
 #Fichiers sources à compiler
-#(Par défaut, compile tous les .c du dossier src)
 SRC=		$(SRC_DIR)/*.c
 
 #Lib à inclure
@@ -31,11 +30,11 @@ LIB=		my
 #Fichiers objets (.o)
 OBJ=		$(SRC:.c=.o)
 
-#Arguments gcc (Ajoutez ici les libs supplémentaires)
-#Ex: -lm pour math.h, -lncurses pour ncurses, ...
-GCC_ARG=	-L$(LIB_DIR) -l$(LIB) -I$(INC_DIR)
-GCC_ARG_DEBUG=	-L$(LIB_DIR) -l$(LIB) -I$(INC_DIR) -g
+#Arguments gcc
+CFLAGS=		-W -Wall -Wextra -pedantic -I$(INC_DIR)
 
+#Arguments de linkage
+LDFLAGS=	-L$(LIB_DIR) -lmy
 
 ############
 #  RÈGLES  #
@@ -47,14 +46,14 @@ all:		$(NAME)
 $(NAME):
 		make -C $(LIB_DIR)
 		@echo "\n\033[1m\033[36mCompiling $(NAME)...\033[0m"
-		gcc -o $(NAME) $(SRC) $(GCC_ARG)
+		gcc -o $(NAME) $(SRC) $(LDFLAGS)
 
 #Compilation "debug" pour Valgrind et GDB (binaire uniquement)
 debug:
 		@echo "\033[1m\033[92mCompiling $(NAME) in debug mode...\033[0m"
-		gcc -o $(NAME) $(SRC) $(GCC_ARG_DEBUG)
+		gcc -o $(NAME) $(SRC) $(LDFLAGS) -g3
 
-#Efface les .o dans lib/my
+#Efface les .o dans les sources et la libmy
 clean:
 		make clean -C $(LIB_DIR)
 		@echo "\n\033[1m\033[33mCleaning files...\033[0m"
@@ -66,4 +65,21 @@ fclean:
 		rm -f $(NAME)
 		make fclean -C $(LIB_DIR)
 
+#Efface binaire et lib et recompile
 re:		fclean all
+
+#Lance les tests unitaires et exécute le binaire
+tests_run:
+		@echo "\033[1m\033[92mCompiling $(NAME) tests...\033[0m"
+		make tests_run -C ./tests
+		@echo "\033[1m\033[92mRunning $(NAME) tests...\033[0m"
+		./PROJECTNAME_tests
+
+#Lance le framework de tests unitaires avec lcov
+tests_coverage:	tests_run
+		@echo "\033[1m\033[92mLaunching the tests report...\033[0m"
+		lcov --directory ./tests -c -o rapport.info &>/dev/null
+		genhtml -o ./bonus/cov_report -t "code coverage report" rapport.info &>/dev/null
+		xdg-open ./bonus/cov_report/src/index.html &>/dev/null
+
+.PHONY: all clean debug fclean re tests_run tests_coverage

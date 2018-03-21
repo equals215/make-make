@@ -3,6 +3,7 @@
 ##
 ## make-make installer
 ## By Ndr
+## Forked by equals215
 ##
 
 CHOICE=-1
