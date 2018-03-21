@@ -36,11 +36,11 @@ then
     echo "Uninstallation aborted :)"
     exit
 fi
-rm ~/bin/make-make
-rm ~/bin/maek/Makefile
-rm ~/bin/maek/make-makelib/Makefile
-rm ~/bin/make-make_files/Makefile
-rm ~/bin/make-make_files/main.c
-rm ~/bin/make-make_files/make-makelib/Makefile
+rm ~/bin/make-make &>/dev/null
+rm ~/bin/maek/Makefile &>/dev/null
+rm ~/bin/maek/make-makelib/Makefile &>/dev/null
+rm ~/bin/make-make_files/Makefile &>/dev/null
+rm ~/bin/make-make_files/main.c &>/dev/null
+rm ~/bin/make-make_files/make-makelib/Makefile &>/dev/null
 echo -e "\033[1m\033[101m Make-make a été désinstallé. Votre lib n'a pas été supprimée et se trouve dans ~/bin/maek ou ~/bin/make-make_files\033[0m\\n"
 sleep 5s
